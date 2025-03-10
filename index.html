@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #titulo{
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 10px;
+            text-align: center;
+            background-color: bisque;
+            border: 1px solid black;
+            height: 25%;
+            display: none; /*Visibility guarda el espacio*/
+        }
+
+        #color{
+            padding: 5px;
+        }
+
+        #menu{
+            margin-top: 10px;
+            height: 200px;
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button onclick="mediaPideDatos()" >Calcularsd Media</button>
+        <button onclick="mediaLeeDatos()"> Calcula media leyendo datos</button>
+        <button onclick="multiploPideDatos()">Es n1 multiplo de 7</button>
+        <button onclick="diaSemana()">Dia n1</button>
+        <button id="boton-muestra">nombre usuario</button>
+        <button id="boton-color" >añade un poco de color</button>
+        <br>
+        <br>
+        <div>
+            n1: <input type="number" id="n1">
+            n2: <input type="number" id="n2">
+            n3: <input type="number" id="n3">
+            n4: <input type="number" id="n4">
+            <p id="display"></p>
+
+        </div>
+
+        <h1 id="titulo"></h1> 
+    </header>
+    <nav>
+        <label for="color">Seleccion el color del menu: </label>
+        <select name="color" id="color">
+            <option value="red" selected>rojo</option>
+            <option value="yellow">amarillo</option>
+            <option value="green">verde</option>
+            <option value="blue">azul</option>
+        </select>
+    </nav>
+
+    <aside id="menu" ></aside>
+
+    <main>
+        <h1>Formulario</h1>
+        <form action="procesa.php" onsubmit="return validaForumlario()">
+            <fieldset>
+                <p>
+                    <label for="usuario">Nombre: </label>
+                    <input type="text" name="usuario" id="usuario">
+                </p>
+
+
+                <p>
+                    <label for="terminos">Has leído los terminos y condiciones: </label>
+                    <input type="checkbox" name="terminos" id="terminos" checked>
+                </p>
+
+                <p>
+                    <input type="submit" value="Registrar">
+                </p>
+            </fieldset>
+        </form>
+    </main>
+
+
+    <script>
+        document.getElementById("boton-muestra").addEventListener('click',ponerNombreUsuario)
+        document.getElementById("boton-color").addEventListener('click',ponerColorH1)
+        document.getElementById("color").addEventListener("change", cambiaColor)
+
+
+
+        function validaForumlario(){
+            const usuario = document.getElementById("usuario").value
+
+            if(String(usuario).length < 5 ){
+                alert("El tamaño del nombre no es correcto")
+            }
+
+
+            if(!document.getElementById("terminos").checked ){
+                alert("Debes aceptar los terminos para continuar")
+                return false;
+            }
+            return true;
+        }
+
+
+        function cambiaColor(){
+            // Otra manera es comprar el string en varios ifs
+            const color = document.getElementById("color").value
+
+            //Se podría utilizar menu.style.backgroundColor -> no se muy recomendable
+            document.getElementById("menu").style.backgroundColor = color
+            
+        }
+
+        function mediaPideDatos(){
+            let n1 = prompt("Dime el primer número: ") /*sale una ventanita*/
+            let n2 = prompt("Dime el primer número: ") 
+            let n3 = prompt("Dime el primer número: ") 
+            let n4 = prompt("Dime el primer número: ") 
+
+            alert("La media es " + media4(Number(n1),Number(n2),Number(n3),Number(n4)))
+        }
+
+        function media4(n1,n2,n3,n4){
+            return (n1+n2+n3+n4)/4
+        }
+
+        function mediaLeeDatos(){
+            let n1 = document.getElementById("n1").value /*Para coger el valor que esta dentro del input*/
+            let n2 = document.getElementById("n2").value 
+            let n3 = document.getElementById("n3").value 
+            let n4 = document.getElementById("n4").value 
+
+            document.getElementById("display").innerHTML = 
+            'la media es ' + media4(Number(n1),Number(n2),Number(n3),Number(n4))
+        }
+
+        function multiploPideDatos(){
+            const n1 = document.getElementById('n1').value
+            let display = document.getElementById('display')
+            if (esMultiplo(7)){
+                display.innerHTML = "Es multiplo de 7"
+            }else{
+                display.innerHTML = "No es multiplo"
+            }
+        }
+
+        function esMultiplo(n){
+            if (n%7 == 0) {
+                return true
+            }else{
+                return false
+            }
+        }
+        
+        function diaSemana(){
+            const semana = ["lunes", 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
+            const n1 = document.getElementById('n1').value;
+            if (n1>=1 && n1<=7) {
+                let display = document.getElementById("display").innerHTML = semana[n1-1] 
+            }else{
+                let display = document.getElementById("display").innerHTML = 'no existe ese dia de la semana'
+            }
+        }
+
+        function ponerNombreUsuario(){
+            const usuario = prompt("Dime el nombre del usuario")
+            document.getElementById("titulo").textContent = usuario
+            document.getElementById("titulo").style.display = "block"
+        }
+
+        function ponerColorH1(){
+            document.getElementById("titulo").style.color = "white"
+            document.getElementById("titulo").style.backgroundColor = "purple"
+            document.getElementById("titulo").style.border = "1px solid black"
+            document.getElementById("titulo").style.borderRadius = "10%"
+            document.getElementById("titulo").style.width = "50%"
+        }
+
+
+
+    </script>
+    
+</body>
+</html>
