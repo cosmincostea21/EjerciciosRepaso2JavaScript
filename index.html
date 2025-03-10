@@ -61,25 +61,46 @@
     <aside id="menu" ></aside>
 
     <main>
-        <h1>Formulario</h1>
-        <form action="procesa.php" onsubmit="return validaForumlario()">
-            <fieldset>
-                <p>
-                    <label for="usuario">Nombre: </label>
-                    <input type="text" name="usuario" id="usuario">
-                </p>
+        <section>
+            <h1>Formulario</h1>
+            <form action="procesa.php" onsubmit="return validaForumlario()">
+                <fieldset>
+                    <p>
+                        <label for="usuario">Nombre: </label>
+                        <input type="text" name="usuario" id="usuario">
+                    </p>
+    
+    
+                    <p>
+                        <label for="terminos">Has leído los terminos y condiciones: </label>
+                        <input type="checkbox" name="terminos" id="terminos" checked>
+                    </p>
+    
+                    <p>
+                        <input type="submit" value="Registrar">
+                    </p>
+                </fieldset>
+            </form>
+        </section>
+        <section>
+            <h1>Formulario 2</h1>
+            <h2>Situacion laboral</h2>
+            <form action="procesa.php" onsubmit="return validaForumlario2()">
+                <fieldset>
+                    <p>
+                        <label for="situacion-laboral">Seleccion el color del menu: </label>
+                        <select name="situacion-laboral" id="situacion-laboral">
+                            <option value="">Elija una opcion...</option>
+                            <option value="emp">Empleado</option>
+                            <option value="desempl">Desempleado</option>
+                            <option value="jubil">Jubilado</option>
+                        </select>
+                    </p>
+                    <input type="submit" value="Enviar">
+                </fieldset>
+            </form>
+        </section>
 
-
-                <p>
-                    <label for="terminos">Has leído los terminos y condiciones: </label>
-                    <input type="checkbox" name="terminos" id="terminos" checked>
-                </p>
-
-                <p>
-                    <input type="submit" value="Registrar">
-                </p>
-            </fieldset>
-        </form>
     </main>
 
 
@@ -89,7 +110,13 @@
         document.getElementById("color").addEventListener("change", cambiaColor)
 
 
-
+        function validaForumlario2(){
+            if (document.querySelector("#situacion-laboral").value == "") {
+                alert("Debe elegir una opcion")
+                return false;
+            }
+            return true;
+        }
         function validaForumlario(){
             const usuario = document.getElementById("usuario").value
 
